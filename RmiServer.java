@@ -7,7 +7,7 @@ public class RmiServer
     extends    UnicastRemoteObject
     implements RmiServerIntf
 {
-    public static final String MESSAGE = "Hello World";
+    public static String MESSAGE = "Hello World";
  
     public RmiServer() throws RemoteException {
         super(0);    // required to avoid the 'rmic' step, see below
@@ -16,9 +16,15 @@ public class RmiServer
     public String getMessage() {
         return MESSAGE;
     }
+
+    public void setMessage(String msg) {
+        MESSAGE = msg;
+    }
  
     public static void main(String args[]) throws Exception {
         System.out.println("RMI server started");
+
+        System.out.println((java.net.InetAddress.getLocalHost()).toString());
  
         try { //special exception handler for registry creation
             LocateRegistry.createRegistry(1099); 
@@ -32,7 +38,7 @@ public class RmiServer
         RmiServer obj = new RmiServer();
  
         // Bind this object instance to the name "RmiServer"
-        Naming.rebind("//localhost/RmiServer", obj);
+        Naming.rebind("//10.2.19.6/RmiServer", obj);
         System.out.println("PeerServer bound in registry");
     }
 }

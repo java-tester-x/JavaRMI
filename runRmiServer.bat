@@ -1,3 +1,3 @@
 javac -Xlint:unchecked RmiServer.java
-java  RmiServer
+java  -Djava.security.policy=server.policy RmiServer
 pause
